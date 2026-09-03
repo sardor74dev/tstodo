@@ -5,6 +5,7 @@
             :key="todo.id"
             :todo="todo"
             @toggle-todo="toggleTodo"
+            @remove-todo="removeTodo"
         />
     </ul>
 </template>
@@ -34,10 +35,13 @@ export default defineComponent({
     },
     methods: {
         toggleTodo(id: number) {
-            const target = this.todos.find(todo => todo.id === id);
+            const target = this.todos.find((todo: Todo) => todo.id === id);
             if (target) {
                 target.isDone = !target.isDone;
             }
+        },
+        removeTodo(id: number) {
+            this.todos = this.todos.filter((todo: Todo) => todo.id !== id);
         }
     }
 })
