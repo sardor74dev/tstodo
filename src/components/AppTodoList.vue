@@ -1,6 +1,11 @@
 <template>
     <ul class="todo-list">
-        <AppTodoItem v-for="todo in todos" :key="todo.id" :todo="todo" />
+        <AppTodoItem
+            v-for="todo in todos" 
+            :key="todo.id"
+            :todo="todo"
+            @toggle-todo="toggleTodo"
+        />
     </ul>
 </template>
 
@@ -25,6 +30,14 @@ export default defineComponent({
                 { id: 2, text: "Learn the basics of Typescript", isDone: false },
                 { id: 3, text: "Subscribe to the channel", isDone: false },
             ]
+        }
+    },
+    methods: {
+        toggleTodo(id: number) {
+            const target = this.todos.find(todo => todo.id === id);
+            if (target) {
+                target.isDone = !target.isDone;
+            }
         }
     }
 })
